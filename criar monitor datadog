@@ -1,4 +1,5 @@
 ### Referencias 
+
 https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/dashboard_list
 
 https://github.com/DataDog/terraform-provider-datadog
@@ -18,12 +19,7 @@ resource "datadog_monitor" "cpumonitor"{
     ok = 20
     warning = 50
     critical = 60
+    notify_no_data    = false
+    renotify_interval = 60
 }
 }
-
-
- # notify_no_data    = false
- # renotify_interval = 60
-}
-
-
