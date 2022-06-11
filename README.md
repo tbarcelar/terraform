@@ -1,6 +1,6 @@
 # terraform
 
-<img src="https://github.com/tbarcelar/terraform/blob/main/log.png" width="950" height="300">
+<img src="https://github.com/tbarcelar/terraform/blob/main/logo.png" width="950" height="200">
 
 
 
