@@ -1,0 +1,79 @@
+
+## Preparar a maquina para receber o terraform
+
+1 --- Você usará esses pacotes para verificar a assinatura GPG da HashiCorp e instalará o repositório de pacotes Debian da HashiCorp.
+
+> sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+
+2 --- Adicione a chave GPG da HashiCorp 
+
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+3 --- Adicione o repositório oficial do HashiCorp Linux
+
+> sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+
+4 --- Atualize para adicionar o repositório e instale a CLI do Terraform.
+> sudo apt-get update && sudo apt-get install terraform
+
+
+5 ---  habilitar a conclusão de tabulação para comandos do Terraform. Para habilitar o preenchimento automático. 
+> touch ~/.bashrc
+
+6 --- Em seguida, instale o pacote de preenchimento automático.
+> terraform -install-autocomplete
+
+
+### Configuração do terraform
+
+. Para ajudar a organizar melhor cria uma pasta para o terraform e entre nele para criar arquivo main.tf
+. é no arquivo main.tf que você coloca as configurações que deseja para usar no terraform. 
+
+1 - mkdir terraform
+2 - cd terraform
+
+---- Segue exemplo de configuração terraform para criar nginx dentro do docker 
+
+>
+
+nano main.tf
+
+
+
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2.13.0"
+    }
+  }
+}
+
+provider "docker" {}
+
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = false
+}
+
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.latest
+  name  = "tutorial"
+  ports {
+    internal = 80
+    external = 8000
+  }
+}
+
+
+< após editar o arquivo main.tf inicie o terraform
+
+ -- Para iniciar o arquivo main.tf criando
+terraform init
+
+-- Para aplicar no terraform
+terraform apply
+
+-- Para parar o contêiner
+terraform destroy.

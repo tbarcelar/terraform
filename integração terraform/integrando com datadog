@@ -1,0 +1,26 @@
+## Antes de integrar é importante que o terraform esteja funcionando na maquina, caso não sabe como fazer veja outro arquivo falando disso
+
+#### Para fazer a integração precisa criar crendencial no datadog 
+
+--- Segue o script de integração 
+
+Inserir no arquivo main.tf
+
+
+
+
+
+
+terraform {
+  required_providers {
+    datadog = {
+      source = "DataDog/datadog"
+    }
+  }
+}
+
+# Configure the Datadog provider
+provider "datadog" {
+  api_key = "xxxxxxxxxxxxxxxx"
+  app_key = "xxxxxxxxxxxxxxxx"
+}

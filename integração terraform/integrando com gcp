@@ -1,0 +1,54 @@
+## Antes de integrar é importante que o terraform esteja funcionando na maquina, caso não sabe como fazer veja outro arquivo falando disso
+
+#### Para fazer a integração precisa criar crendencial no google 
+
+-- Entre no seu projeto na opção crendencial - segue link de exemplo (alterar o xxxx pelo numero do seu projeto)
+1 - https://console.cloud.google.com/apis/credentials?project=projeto2-xxxx
+
+2 - Clique em criar crendencial
+3 - Tipo de crendencial seleicionar CONTA DE SERVIÇO
+4 - Conceda o acesso conforme desejar e salve
+5 - Entrar na crendencial criada e ir na opção criar chaves
+6 - Assim que criar a chave irá salvar no seu computador as chaves no formato de JSON
+7 - Pegue esse arquivo e coloque na pasta terraform que criou no google
+
+
+
+
+### Segue o script de integração do google com terraform 
+
+
+1 - inserir no arquivo main.tf
+
+
+
+
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+      version = "3.5.0"
+    }
+  }
+}
+
+provider "google" {
+  credentials = file("xxx.json")
+
+  project = "projeto2-xxxx"
+  region  = "us-west4-b"
+  zone    = "us-west4-b"
+}
+
+resource "google_compute_network" "vpc_network" {
+  name = "terraform-network"
+}
+
+
+
+
+2 - Iniciar ao arquivo
+terraform init
+
+3 - Aplicar no Terraform
+terraform apply

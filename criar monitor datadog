@@ -1,0 +1,29 @@
+### Referencias 
+https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/dashboard_list
+
+https://github.com/DataDog/terraform-provider-datadog
+
+
+
+
+
+-------- criando monitor 
+
+resource "datadog_monitor" "cpumonitor"{
+  name = "cpu monitor"
+  type = "metric alert"
+  message = "CPU usage alert"
+  query = "avg(last_1m):avg:system.cpu.system{*} by {host} > 60"
+  monitor_thresholds {
+    ok = 20
+    warning = 50
+    critical = 60
+}
+}
+
+
+ # notify_no_data    = false
+ # renotify_interval = 60
+}
+
+
